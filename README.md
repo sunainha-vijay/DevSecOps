@@ -33,15 +33,29 @@ Deployment: Render
 To run this application on your local machine, follow these steps:
 
 Clone the repository:
+
 git clone https://github.com/sunainha-vijay/challenge3.git
+
 cd challenge3
+
+
 Create and activate a virtual environment:
+
 python -m venv venv
+
 source venv/bin/activate
+
+
 Install dependencies:
+
 pip install -r requirements.txt
+
+
 Run the application:
+
 python app.py
+
+
 The API will be available at http://127.0.0.1:5000.
 
 ### Deployment on Render
@@ -75,8 +89,8 @@ A sonar-project.properties file was created in the repository's root to provide 
 "Automatic Analysis" was disabled in the SonarCloud project settings, resolving the conflict.
 
 ### 3. Bandit Security Linter Warning
-Challenge: The Bandit security scan failed the build due to a B104:hardcoded_bind_all_interfaces warning on the line app.run(host="0.0.0.0", ...).
+Challenge: The Bandit SAST tool flagged a medium-severity vulnerability (B104:hardcoded_bind_all_interfaces) on the line app.run(host="0.0.0.0"). This presented a conflict: this configuration is often necessary for containerized deployment environments (like Render) but is a security risk for local development on an open network.
 
-Assumption: The app.run() command is only intended for local development. The production deployment on Render uses a secure, production-grade WSGI server (Gunicorn), which is configured separately.
+Assumption/Principle: Security analysis must be context-aware. A configuration that is appropriate for a sandboxed production environment may be insecure for an uncontrolled local development environment.
 
-Solution: For secure local development, the host was changed to app.run(host="127.0.0.1", ...). This resolves the security warning for the code intended for local use, while the production environment remains unaffected and secure.  
+Solution: The solution acknowledges that the if __name__ == "__main__": block is strictly for local development, as the Render deployment uses a production-grade WSGI server (Gunicorn) defined in its Start Command. Therefore, the code was modified to use the more secure host="127.0.0.1" for local execution. This satisfies the security linter for the relevant context (local development) without impacting the production deployment configuration.
