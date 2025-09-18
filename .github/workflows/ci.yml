@@ -12,10 +12,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    # Set the default working directory for all run steps in this job
-    defaults:
-      run:
-        working-directory: ./challenge3
 
     steps:
       # 1. Checks out your repository's code
