@@ -1,5 +1,5 @@
 import json
-from challenge3.app import app
+from app import app
 
 def test_health():
     client = app.test_client()
@@ -18,4 +18,5 @@ def test_divide_by_zero():
     response = client.post("/calculate", json={"operation": "divide", "a": 5, "b": 0})
     assert response.status_code == 400
     assert "error" in response.json
+
 
