@@ -54,4 +54,6 @@ jobs:
 
       # 7. Runs the tests
       - name: Run Tests (pytest)
-        run: pytest --maxfail=1 --disable-warnings -q
+        run: |
+          export PYTHONPATH=.
+          pytest --maxfail=1 --disable-warnings -q
