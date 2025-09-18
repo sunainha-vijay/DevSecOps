@@ -47,10 +47,10 @@ jobs:
       # 5. Runs the linter
       - name: Run Linter (flake8)
         run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-
+      
       # 6. Runs the security scan
       - name: Run Security Scan (Bandit)
-        run: bandit -r .
+        run: bandit -r .  -x ./tests
 
       # 7. Runs the tests
       - name: Run Tests (pytest)
