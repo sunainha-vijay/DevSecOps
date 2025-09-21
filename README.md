@@ -3,7 +3,6 @@
 # Challenge 3 - DevSecOps Demo
 
 [![CI Pipeline](https://github.com/sunainha-vijay/challenge3/actions/workflows/ci.yml/badge.svg)](https://github.com/sunainha-vijay/challenge3/actions/workflows/ci.yml)
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=sunainha-vijay_challenge3)](https://sonarcloud.io/summary/new_code?id=sunainha-vijay_challenge3)
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-dark.svg)](https://sonarcloud.io/summary/new_code?id=sunainha-vijay_challenge3)
 
 This repository contains a simple Flask-based calculator API created to demonstrate a fundamental DevSecOps workflow. The project integrates automated security and quality checks directly into a Continuous Integration (CI) pipeline using GitHub Actions.
