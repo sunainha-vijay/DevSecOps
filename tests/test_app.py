@@ -1,5 +1,6 @@
 import subprocess
 import sys
+from app import calculate, main
 
 def run_command(args):
     """A helper function to run the app.py script as a command-line tool."""
@@ -37,3 +38,17 @@ def test_cli_divide_by_zero():
     assert result.returncode != 0
     # Check that the specific error message is printed to the standard error stream.
     assert "Error: Division by zero" in result.stderr
+
+
+
+
+def test_add():
+    assert calculate("add", 2, 3) == 5
+
+def test_main_add(capsys):
+    sys.argv = ["app.py", "add", "2", "3"]
+    exit_code = main()
+    assert exit_code == 0
+    captured = capsys.readouterr()
+    assert "Result: 5" in captured.out
+
