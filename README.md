@@ -3,16 +3,14 @@
 # Challenge 3 - DevSecOps Demo
 
 [![CI Pipeline](https://github.com/sunainha-vijay/challenge3/actions/workflows/ci.yml/badge.svg)](https://github.com/sunainha-vijay/challenge3/actions/workflows/ci.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sunainha-vijay_challenge3&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=sunainha-vijay_challenge3)
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-dark.svg)](https://sonarcloud.io/summary/new_code?id=sunainha-vijay_challenge3)
 
 This repository contains a simple Flask-based calculator API created to demonstrate a fundamental DevSecOps workflow. The project integrates automated security and quality checks directly into a Continuous Integration (CI) pipeline using GitHub Actions.
 
 
-Demo Link: https://challenge3-1.onrender.com/
-
-
 ## Objective
-The primary objective of this challenge is to showcase an understanding of DevSecOps principles by building an automated CI/CD pipeline. This pipeline serves as a "quality gate," ensuring that all code committed to the main branch is automatically tested, linted, and scanned for security vulnerabilities and code quality issues before it can be deployed.
+The primary objective of this challenge is to showcase an understanding of DevSecOps principles by building an automated CI/CD pipeline. This pipeline serves as a "quality gate," ensuring that all code committed to the main branch is automatically tested, linted, and scanned for security vulnerabilities and code quality issues.
 
 ## Tech Stack
 Language: Python 3.10
@@ -29,7 +27,7 @@ Testing: pytest
 
 Advanced Code Analysis: SonarCloud
 
-Deployment: Render
+
 
 ## Setup Steps
 ### Local Setup
@@ -61,12 +59,6 @@ python app.py
 
 The API will be available at http://127.0.0.1:5000.
 
-### Deployment on Render
-This application is configured for continuous deployment on Render. The key settings in the Render dashboard are:
-
-Build Command: pip install -r requirements.txt
-
-Start Command: gunicorn app:app
 
 ## Challenges & Assumptions Made
 ### 1. CI/CD Pathing and Import Errors
