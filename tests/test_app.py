@@ -1,48 +1,47 @@
-import json
-from app import app
+import subprocess
+import sys
 
-def test_health():
-    """
-    Tests the /health endpoint to ensure it's running and returns a success status.
-    This is a basic check to confirm the API is responsive.
-    """
-    # Arrange: Set up the test client
-    client = app.test_client()
+def run_command(args):
+    """Helper function to run the CLI script and capture its output."""
+    # Construct the full command to run, e.g., ["python", "app.py", "add", "10", "5"]
+    command = [sys.executable, "app.py"] + args
+    # Execute the command
+    return subprocess.run(command, capture_output=True, text=True)
 
-    # Act: Send a GET request to the /health endpoint
-    response = client.get("/health")
+def test_cli_addition():
+    """Tests the CLI for a valid addition operation."""
+    # Act: Run the app with "add 10 5"
+    result = run_command(["add", "10", "5"])
+    
+    # Assert: Check for a successful exit code and the correct output
+    assert result.returncode == 0
+    assert "15.0" in result.stdout
 
-    # Assert: Check for a successful status code and the correct JSON response
-    assert response.status_code == 200
-    assert response.json == {"status": "ok"}
+def test_cli_subtraction():
+    """Tests the CLI for a valid subtraction operation."""
+    # Act: Run the app with "subtract 20 7"
+    result = run_command(["subtract", "20", "7"])
 
-def test_addition():
-    """
-    Tests a valid addition operation via the /calculate endpoint.
-    """
-    # Arrange: Set up the test client
-    client = app.test_client()
+    # Assert: Check for a successful exit code and the correct output
+    assert result.returncode == 0
+    assert "13.0" in result.stdout
 
-    # Act: Send a POST request with JSON data for an addition calculation
-    response = client.post("/calculate", json={"operation": "add", "a": 5, "b": 3})
+def test_cli_invalid_operation():
+    """Tests that the CLI exits with an error for an invalid operation."""
+    # Act: Run the app with a made-up operation
+    result = run_command(["multiply", "10", "5"])
+    
+    # Assert: Check for a non-zero exit code (indicating an error)
+    assert result.returncode != 0
+    # Assert that argparse printed an error message to stderr
+    assert "invalid choice" in result.stderr
 
-    # Assert: Check for a successful status code and that the result is correct
-    assert response.status_code == 200
-    assert response.json["result"] == 8
+def test_cli_missing_arguments():
+    """Tests that the CLI exits with an error if arguments are missing."""
+    # Act: Run the app with only one number
+    result = run_command(["add", "10"])
 
-def test_divide_by_zero():
-    """
-    Tests the error handling for a division by zero operation.
-    The API should gracefully handle this invalid input and return a client error.
-    """
-    # Arrange: Set up the test client
-    client = app.test_client()
-
-    # Act: Send a POST request with JSON data for a division by zero
-    response = client.post("/calculate", json={"operation": "divide", "a": 5, "b": 0})
-
-    # Assert: Check for a 400 Bad Request status code and that an error message is in the response
-    assert response.status_code == 400
-    assert "error" in response.json
-
-
+    # Assert: Check for a non-zero exit code
+    assert result.returncode != 0
+    # Assert that argparse printed its help/error message
+    assert "the following arguments are required" in result.stderr
