@@ -32,4 +32,17 @@ def test_addition():
 
 def test_divide_by_zero():
     """
-    Tests the
+    Tests the error handling for a division by zero operation.
+    The API should gracefully handle this invalid input and return a client error.
+    """
+    # Arrange: Set up the test client
+    client = app.test_client()
+
+    # Act: Send a POST request with JSON data for a division by zero
+    response = client.post("/calculate", json={"operation": "divide", "a": 5, "b": 0})
+
+    # Assert: Check for a 400 Bad Request status code and that an error message is in the response
+    assert response.status_code == 400
+    assert "error" in response.json
+
+
