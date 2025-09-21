@@ -1,5 +1,4 @@
 flask
 pytest
-fastapi
-uvicorn
+
 
