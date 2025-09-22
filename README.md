@@ -54,8 +54,9 @@ pip install -r requirements.txt
 
 Run the application:
 
-python app.py
+python app.py {operator} {a} {b}
 
+example: python app.py add 5 10
 
 The API will be available at http://127.0.0.1:5000.
 
