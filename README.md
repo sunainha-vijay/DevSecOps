@@ -35,9 +35,9 @@ To run this application on your local machine, follow these steps:
 
 Clone the repository:
 
-git clone https://github.com/sunainha-vijay/challenge3.git
+git clone https://github.com/sunainha-vijay/DevSecOps.git
 
-cd challenge3
+cd DevSecOps
 
 
 Create and activate a virtual environment:
